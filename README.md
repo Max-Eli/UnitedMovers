@@ -50,6 +50,33 @@ an SMS campaign:
 Update the business/legal details in `src/lib/site.ts` before going live, and have
 your own counsel review the legal pages for your exact SMS program.
 
+## Deploying to Vercel
+
+This is a standard Next.js App Router app, so Vercel needs no extra config. There
+is no `vercel.json` on purpose. Vercel auto-detects Next.js and wires up routing,
+serverless functions (for `/api/quote`), image optimization, and the custom 404.
+
+1. **Import the repo** at https://vercel.com/new. Framework preset: Next.js
+   (detected automatically). Leave build command and output directory as default.
+2. **Add environment variables** (Project → Settings → Environment Variables), for
+   the Production and Preview environments:
+   - `RESEND_API_KEY` — your Resend key.
+   - `RESEND_FROM` — `United Movers <quotes@unitedmoversfl.com>`.
+   - `LEAD_TO` — `unitedmovingfl@gmail.com`.
+   The form still works without these (it logs the lead and returns success); the
+   keys are only needed to actually email the lead.
+3. **Add the domain** `unitedmoversfl.com` under Project → Settings → Domains and
+   point your DNS as Vercel instructs.
+4. Redeploy after adding env vars so they take effect.
+
+### About 404s
+
+Routing is verified end to end: every real page returns 200, unknown URLs
+(including bad `/services/...` slugs) return a real 404 status with the branded
+404 page, and trailing-slash URLs redirect instead of erroring. If you ever add a
+new page, add it as a folder with a `page.tsx` under `src/app/` and link to it, and
+Vercel picks it up automatically.
+
 ## Notes
 
 - Photography loads from Unsplash. Swap the image URLs in `src/lib/services.ts` and
