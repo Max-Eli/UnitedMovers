@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: #E1552B;
+    color: #fff;
+  }
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .container-p {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.18em] text-clay;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold transition duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-clay text-white shadow-[0_10px_24px_-10px_rgba(225,85,43,0.9)] hover:bg-clay-600 hover:-translate-y-0.5;
+  }
+
+  .btn-ink {
+    @apply btn bg-ink text-paper hover:bg-ink-700 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply btn border border-[rgba(11,30,51,0.15)] bg-white/60 text-ink hover:border-[rgba(11,30,51,0.3)] hover:bg-white;
+  }
+
+  .btn-outline-light {
+    @apply btn border border-white/30 text-white hover:bg-white/10;
+  }
+
+  .link-underline {
+    @apply relative inline-block;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.3s var(--ease-out-soft);
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+
+  .card {
+    @apply rounded-card border border-[rgba(11,30,51,0.08)] bg-white shadow-card;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: reveal 0.7s var(--ease-out-soft) forwards;
+  }
+}
+
+.legal-prose ul {
+  list-style: none;
+  padding: 0;
+}
+.legal-prose li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #E1552B;
+}
+.legal-prose strong {
+  color: #0B1E33;
+  font-weight: 600;
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Thin, unobtrusive scrollbar for a polished desktop feel */
+@media (pointer: fine) {
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(11, 30, 51, 0.22);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(11, 30, 51, 0.38); background-clip: content-box; }
+}
