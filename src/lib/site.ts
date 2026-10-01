@@ -22,7 +22,7 @@ export const site = {
     { day: "Sunday", time: "By appointment" },
   ],
   founded: 2014,
-  license: "USDOT 3591420 · FL IM No. 2842",
+  license: "USDOT 9848744 · FL IM No. 2842",
   domain: "unitedmoversfl.com",
 } as const;
 
